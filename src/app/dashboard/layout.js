@@ -22,14 +22,16 @@ const DashboardLayout = ({ children }) => {
               <li className="mb-2">
                 <a
                   href="/dashboard"
-                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
+                >
                   <i className="fas fa-home mr-3"></i> Home
                 </a>
               </li>
               <li className="mb-2">
                 <a
                   href="/dashboard/list"
-                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
+                >
                   <i className="fas fa-box mr-3"></i> Role
                   <span className="ml-auto text-xs font-semibold text-gray-500">
                     3
@@ -51,7 +53,8 @@ const DashboardLayout = ({ children }) => {
               <li className="mb-2">
                 <a
                   href="/dashboard/article"
-                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
+                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
+                >
                   <i className="fas fa-cube mr-3"></i> Article
                   <span className="ml-auto text-xs font-semibold text-gray-500">
                     12

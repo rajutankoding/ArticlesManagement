@@ -1,4 +1,5 @@
 "use client";
+import article from "@/app/article";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -10,8 +11,9 @@ const Article = () => {
   // Fungsi untuk mengambil data dari API
   const getData = async () => {
     try {
-      const response = await axios.get("http://192.168.5.3:3345/Article");
-      return response.data; // Mengembalikan data dari API
+      // const response = await axios.get("http://192.168.5.3:3345/Article");
+      // return response.data; // Mengembalikan data dari API
+      return article;
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error.message); // Menyimpan pesan error di state
@@ -24,6 +26,7 @@ const Article = () => {
     const fetchData = async () => {
       const data = await getData();
       if (data) {
+        // console.log("Ambil Data : ", data);
         setArticles(data); // Menyimpan data artikel ke state
       }
       setLoading(false); // Menyelesaikan proses loading
@@ -48,7 +51,8 @@ const Article = () => {
           {articles.map((article, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden">
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+            >
               <img
                 src={article.image || "https://via.placeholder.com/600"} // Gambar dari API atau placeholder
                 alt={article.title || "Default Title"}
@@ -85,9 +89,12 @@ const Article = () => {
                   </span>
                 </div>
                 <div className="flex justify-end items-center mt-4">
-                  <button className=" bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded">
+                  <a
+                    href={`/dashboard/article/${article.id}`}
+                    className="button bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded"
+                  >
                     Manage
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
