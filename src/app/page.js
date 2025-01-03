@@ -11,9 +11,9 @@ export default function Home() {
   // Fungsi untuk mengambil data dari API
   const getData = async () => {
     try {
-      // const response = await axios.get("http://103.47.60.195:5925/Article");
-      // return response.data; // Mengembalikan data dari API
-      return article;
+      const response = await axios.get("http://103.47.60.195:5925/Article");
+      return response.data; // Mengembalikan data dari API
+      // return article;
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error.message); // Menyimpan pesan error di state
@@ -48,8 +48,7 @@ export default function Home() {
         className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
         href="/dashboard"
         // target="_blank"
-        rel="noopener noreferrer"
-      >
+        rel="noopener noreferrer">
         Manage AI
       </a>
       <h1 className="text-2xl font-bold mb-6">Articles</h1>
@@ -57,8 +56,7 @@ export default function Home() {
         {articles.map((article, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
+            className="bg-white rounded-lg shadow-md overflow-hidden">
             <img
               src={article.image || "https://via.placeholder.com/600"} // Gambar dari API atau placeholder
               alt={article.title || "Default Title"}

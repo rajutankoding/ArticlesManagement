@@ -4,16 +4,16 @@ import article from "@/app/article";
 import React, { use, useEffect, useState } from "react";
 
 const Detail = ({ params }) => {
-  const [loading, setLoading] = useState(true); // State untuk loading
-  const [articles, setArticles] = useState({}); // State untuk artikel
-  const [error, setError] = useState(null); // State untuk error
+  const [loading, setLoading] = useState(true);
+  const [articles, setArticles] = useState({});
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState();
-  // const [sDesc, setsDesc] = useState()
   const [desc, setDesc] = useState();
   const [image, setImage] = useState();
   const [content, setContent] = useState();
+
   const { id } = use(params);
-  // console.log("Params : ", article);
+
   const getData = async () => {
     try {
       const response = article.find((item) => item.id === parseInt(id));
@@ -57,8 +57,7 @@ const Detail = ({ params }) => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="title"
-            >
+              htmlFor="title">
               Title
             </label>
             <input
@@ -73,8 +72,7 @@ const Detail = ({ params }) => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="author"
-            >
+              htmlFor="author">
               Short Description
             </label>
             <input
@@ -89,8 +87,7 @@ const Detail = ({ params }) => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="content"
-            >
+              htmlFor="content">
               Content
             </label>
             <textarea
@@ -99,14 +96,12 @@ const Detail = ({ params }) => {
               rows="10"
               value={content}
               onChange={setContent}
-              placeholder="Enter article content"
-            ></textarea>
+              placeholder="Enter article content"></textarea>
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="image"
-            >
+              htmlFor="image">
               Image URL
             </label>
             <input
@@ -127,14 +122,12 @@ const Detail = ({ params }) => {
           <div className="flex items-center justify-between">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
+              type="button">
               Save
             </button>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
           </div>

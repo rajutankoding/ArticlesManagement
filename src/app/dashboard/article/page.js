@@ -11,8 +11,8 @@ const Article = () => {
   // Fungsi untuk mengambil data dari API
   const getData = async () => {
     try {
-      // const response = await axios.get("http://192.168.5.3:3345/Article");
-      // return response.data; // Mengembalikan data dari API
+      //   const response = await axios.get("http://192.168.5.3:3345/Article");
+      //   return response.data; // Mengembalikan data dari API
       return article;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -51,8 +51,7 @@ const Article = () => {
           {articles.map((article, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
-            >
+              className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src={article.image || "https://via.placeholder.com/600"} // Gambar dari API atau placeholder
                 alt={article.title || "Default Title"}
@@ -91,8 +90,7 @@ const Article = () => {
                 <div className="flex justify-end items-center mt-4">
                   <a
                     href={`/dashboard/article/${article.id}`}
-                    className="button bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded"
-                  >
+                    className="button bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded">
                     Manage
                   </a>
                 </div>
