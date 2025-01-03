@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { useFormStatus } from "react-dom";
 
 const Form = () => {
+  const [error, setErrors] = useState({});
   const [formData, setFormData] = useState({
     email: "",
     namaLengkap: "",
-    tanggalTes: "",
+    // tanggalTes: "",
     nik: "",
     tempatTanggalLahir: "",
     alamat: "",
@@ -16,6 +18,11 @@ const Form = () => {
     nomorTelepon: "",
     keperluan: "",
     tanggalPilihan: "",
+    rtrw: "",
+    kelDes: "",
+    kecamatan: "",
+    agama: "",
+    tgltes: "",
   });
 
   const handleChange = (e) => {
@@ -26,13 +33,69 @@ const Form = () => {
     });
   };
 
+  const isInvalid =
+    !formData.email ||
+    !formData.namaLengkap ||
+    // !formData.tanggalTes ||
+    !formData.nik ||
+    !formData.tempatTanggalLahir ||
+    !formData.alamat ||
+    !formData.statusPerkawinan ||
+    !formData.pekerjaan ||
+    !formData.kewarganegaraan ||
+    !formData.jenisPemeriksaan ||
+    !formData.nomorTelepon ||
+    !formData.keperluan ||
+    !formData.tanggalPilihan ||
+    !formData.rtrw ||
+    !formData.kelDes ||
+    !formData.kecamatan ||
+    !formData.agama ||
+    !formData.tgltes;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
-    // Redirect or save the data
-    window.location.href = "https://w.com";
+    if (isInvalid) {
+      setErrors({
+        email: !formData.email,
+        namaLengkap: !formData.namaLengkap,
+        // tanggalTes: !formData.tanggalTes,
+        nik: !formData.nik,
+        tempatTanggalLahir: !formData.tempatTanggalLahir,
+        alamat: !formData.alamat,
+        statusPerkawinan: !formData.statusPerkawinan,
+        pekerjaan: !formData.pekerjaan,
+        kewarganegaraan: !formData.kewarganegaraan,
+        jenisPemeriksaan: !formData.jenisPemeriksaan,
+        nomorTelepon: !formData.nomorTelepon,
+        keperluan: !formData.keperluan,
+        tanggalPilihan: !formData.tanggalPilihan,
+      });
+      return;
+    } else {
+      console.log(error);
+      console.log(formData);
+      // Validasi: Periksa apakah ada field yang kosong
+      const newErrors = {};
+      Object.keys(formData).forEach((field) => {
+        if (!formData[field]) {
+          newErrors[field] = "Field ini wajib diisi.";
+        }
+      });
+
+      // Jika ada error, set pesan error dan hentikan pengiriman form
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+
+      console.log("Form data submitted:", formData);
+      // Lakukan tindakan lain, misalnya redirect atau mengirim data ke server
+      // window.location.href = "https://w.com";
+    }
   };
 
+  const { formStatus } = useFormStatus;
   return (
     <main className="flex-1 text-black p-6 bg-white">
       <img
@@ -55,9 +118,22 @@ const Form = () => {
               Email <span className="text-red-600">*</span>
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               value={formData.email}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              placeholder="Jawaban Anda"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              Nomor Telepon (WA) <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="number"
+              name="nomorTelepon"
+              value={formData.nomorTelepon}
               onChange={handleChange}
               className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
               placeholder="Jawaban Anda"
@@ -76,28 +152,13 @@ const Form = () => {
               placeholder="Jawaban Anda"
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-black font-medium mb-2">
-              Tanggal Tes <span className="text-red-600">*</span>
-            </label>
-            <div className="flex text-black items-center">
-              <input
-                type="radio"
-                id="tanggal1"
-                name="tanggalTes"
-                value="Senin, 6 Januari 2025"
-                onChange={handleChange}
-                className="mr-2"
-              />
-              <label htmlFor="tanggal1">Senin, 6 Januari 2025</label>
-            </div>
-          </div>
+
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
               NIK <span className="text-red-600">*</span>
             </label>
             <input
-              type="text"
+              type="number"
               name="nik"
               value={formData.nik}
               onChange={handleChange}
@@ -144,6 +205,59 @@ const Form = () => {
               placeholder="Jawaban Anda"
             />
           </div>
+          {/*  */}
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              RT/RW <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="text"
+              name="rtrw"
+              value={formData.rtrw}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              placeholder="Jawaban Anda"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              Kel/Desa <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="text"
+              name="kelDes"
+              value={formData.kelDes}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              placeholder="Jawaban Anda"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              Kecamatan <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="text"
+              name="kecamatan"
+              value={formData.kecamatan}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              placeholder="Jawaban Anda"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              Agama <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="text"
+              name="agama"
+              value={formData.agama}
+              onChange={handleChange}
+              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              placeholder="Jawaban Anda"
+            />
+          </div>
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
               Status Perkawinan <span className="text-red-600">*</span>
@@ -183,60 +297,40 @@ const Form = () => {
               placeholder="Jawaban Anda"
             />
           </div>
+          {/* Add other fields in the same way */}
           {/* <div className="mb-6">
             <label className="block text-black font-medium mb-2">
-              Jenis Pemeriksaan <span className="text-red-600">*</span>
+              Tanggal Tes <span className="text-red-600">*</span>
             </label>
             <div className="flex text-black items-center">
               <input
                 type="radio"
                 id="tanggal1"
-                name="tanggal"
+                name="tanggalTes"
+                value="Senin, 6 Januari 2025"
+                onChange={handleChange}
                 className="mr-2"
               />
-              <label htmlFor="tanggal1">Fisik, Jiwa dan Bebas Narkoba</label>
-            </div>
-            <div className="flex text-black items-center">
-              <input
-                type="radio"
-                id="tanggal1"
-                name="tanggal"
-                className="mr-2"
-              />
-              <label htmlFor="tanggal1">Fisik dan Jiwa</label>
-            </div>
-            <div className="flex text-black items-center">
-              <input
-                type="radio"
-                id="tanggal1"
-                name="tanggal"
-                className="mr-2"
-              />
-              <label htmlFor="tanggal1">Fisik dan Jiwa</label>
-            </div>
-            <div className="flex text-black items-center">
-              <input
-                type="radio"
-                id="tanggal1"
-                name="tanggal"
-                className="mr-2"
-              />
-              <label htmlFor="tanggal1">Bebas Narkoba</label>
+              <label htmlFor="tanggal1">Senin, 6 Januari 2025</label>
             </div>
           </div> */}
-          {/* Add other fields in the same way */}
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
-              Nomor Telepon (WA) <span className="text-red-600">*</span>
+              Tanggal Tes <span className="text-red-600">*</span>
             </label>
-            <input
-              type="text"
-              name="nomorTelepon"
-              value={formData.nomorTelepon}
-              onChange={handleChange}
-              className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
-              placeholder="Jawaban Anda"
-            />
+            <div className="flex flex-col space-y-2">
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="tanggaltes"
+                  name="tgltes"
+                  value="Senin, 6 Januari 2025"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="tanggaltes">Senin, 6 Januari 2025</label>
+              </div>
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
@@ -295,15 +389,38 @@ const Form = () => {
               </div>
             </div>
           </div>
-          <a
-            // type="button"
-            onClick={() => {
-              console.log(formData);
-            }}
-            type="submit"
-            className="bg-blue-500 text-white font-bold px-4 py-2 rounded">
-            Submit
-          </a>
+          {isInvalid ? (
+            <>
+              <div className="text-red-600 text-xl mb-2">
+                Ada Kolom yang belum Anda isi
+              </div>
+              <button
+                // disabled
+                // type="button"
+                // onClick={() => {
+                //   console.log(formData);
+                // }}
+                type="submit"
+                // disabled={isInvalid}
+                className="btn disable bg-red-600 text-white font-bold px-4 py-2 rounded"
+              >
+                {/* {formStatus ? "Sedang Menyimpan..." : "Simpan"} */}
+              </button>
+            </>
+          ) : (
+            <button
+              disabled={formStatus}
+              // type="button"
+              // onClick={() => {
+              //   console.log(formData);
+              // }}
+              type="submit"
+              // disabled={isInvalid}
+              className="btn disable bg-blue-500 text-white font-bold px-4 py-2 rounded"
+            >
+              {formStatus ? "Sedang Menyimpan..." : "Simpan"}
+            </button>
+          )}
         </form>
       </div>
     </main>
