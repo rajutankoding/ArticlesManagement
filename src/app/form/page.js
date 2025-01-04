@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useFormStatus } from "react-dom";
+import { SaveData } from "../../../lib/action";
 
 const Form = () => {
   const [error, setErrors] = useState({});
@@ -17,7 +18,7 @@ const Form = () => {
     jenisPemeriksaan: "",
     nomorTelepon: "",
     keperluan: "",
-    tanggalPilihan: "",
+    tanggalLahir: "",
     rtrw: "",
     kelDes: "",
     kecamatan: "",
@@ -46,7 +47,7 @@ const Form = () => {
     !formData.jenisPemeriksaan ||
     !formData.nomorTelepon ||
     !formData.keperluan ||
-    !formData.tanggalPilihan ||
+    !formData.tanggalLahir ||
     !formData.rtrw ||
     !formData.kelDes ||
     !formData.kecamatan ||
@@ -69,12 +70,13 @@ const Form = () => {
         jenisPemeriksaan: !formData.jenisPemeriksaan,
         nomorTelepon: !formData.nomorTelepon,
         keperluan: !formData.keperluan,
-        tanggalPilihan: !formData.tanggalPilihan,
+        tanggalLahir: !formData.tanggalLahir,
       });
       return;
     } else {
-      console.log(error);
-      console.log(formData);
+      // console.log(error);
+      // console.log(formData);
+      // SaveData;
       // Validasi: Periksa apakah ada field yang kosong
       const newErrors = {};
       Object.keys(formData).forEach((field) => {
@@ -152,7 +154,6 @@ const Form = () => {
               placeholder="Jawaban Anda"
             />
           </div>
-
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
               NIK <span className="text-red-600">*</span>
@@ -186,10 +187,16 @@ const Form = () => {
             </label>
             <input
               type="date"
-              name="tanggalPilihan"
-              value={formData.tanggalPilihan}
+              name="tanggalLahir"
+              value={formData.tanggalLahir}
               onChange={handleChange}
               className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
+              // max={new Date().toISOString().split("T")[0]}
+              max={
+                new Date(new Date().setDate(new Date().getDate() - 2))
+                  .toISOString()
+                  .split("T")[0]
+              }
             />
           </div>
           <div className="mb-6">
@@ -258,7 +265,7 @@ const Form = () => {
               placeholder="Jawaban Anda"
             />
           </div>
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <label className="block text-black font-medium mb-2">
               Status Perkawinan <span className="text-red-600">*</span>
             </label>
@@ -270,6 +277,68 @@ const Form = () => {
               className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
               placeholder="Jawaban Anda"
             />
+          </div> */}
+          <div className="mb-6">
+            <label className="block text-black font-medium mb-2">
+              Status Perkawinan <span className="text-red-600">*</span>
+            </label>
+            <div className="flex flex-col space-y-2">
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="blmNikah"
+                  name="statusPerkawinan"
+                  value="BELUM MENIKAH"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="blmNikah">BELUM MENIKAH</label>
+              </div>
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="nikah"
+                  name="statusPerkawinan"
+                  value="MENIKAH"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="nikah">MENIKAH</label>
+              </div>
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="janda"
+                  name="statusPerkawinan"
+                  value="JANDA"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="janda">JANDA</label>
+              </div>
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="dudha"
+                  name="statusPerkawinan"
+                  value="DUDHA"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="dudha">DUDHA</label>
+              </div>
+              <div className="flex text-black items-center">
+                <input
+                  type="radio"
+                  id="jomblo"
+                  name="statusPerkawinan"
+                  value="JOMBLO"
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="jomblo">JOMBLO</label>
+              </div>
+            </div>
           </div>
           <div className="mb-6">
             <label className="block text-black font-medium mb-2">
@@ -395,7 +464,7 @@ const Form = () => {
                 Ada Kolom yang belum Anda isi
               </div>
               <button
-                // disabled
+                disabled
                 // type="button"
                 // onClick={() => {
                 //   console.log(formData);
@@ -404,12 +473,12 @@ const Form = () => {
                 // disabled={isInvalid}
                 className="btn disable bg-red-600 text-white font-bold px-4 py-2 rounded"
               >
-                {/* {formStatus ? "Sedang Menyimpan..." : "Simpan"} */}
+                {formStatus ? "Sedang Menyimpan..." : "Simpan"}
               </button>
             </>
           ) : (
             <button
-              disabled={formStatus}
+              // disabled
               // type="button"
               // onClick={() => {
               //   console.log(formData);
