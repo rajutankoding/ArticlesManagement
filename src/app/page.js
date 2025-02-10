@@ -11,7 +11,7 @@ export default function Home() {
   // Fungsi untuk mengambil data dari API
   const getData = async () => {
     try {
-      const response = await axios.get("http://103.47.60.195:5925/Article");
+      const response = await axios.get("http://192.168.5.3:3345/Article");
       return response.data; // Mengembalikan data dari API
       // return article;
     } catch (error) {

@@ -11,8 +11,8 @@ const Article = () => {
   // Fungsi untuk mengambil data dari API
   const getData = async () => {
     try {
-      //   const response = await axios.get("http://192.168.5.3:3345/Article");
-      //   return response.data; // Mengembalikan data dari API
+      const response = await axios.get("http://192.168.5.3:3345/Article");
+      return response.data; // Mengembalikan data dari API
       return article;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -47,6 +47,15 @@ const Article = () => {
     <main className="flex-1 p-6 bg-white">
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Articles</h1>
+        <a
+          className="btn bg-blue-500 my-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          href={`/dashboard/article/addArticle`}
+          onClick={() => {
+            // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
+            console.log("Tombol ditekan!");
+          }}>
+          + Articles
+        </a>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {articles.map((article, index) => (
             <div
